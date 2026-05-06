@@ -11,12 +11,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "users")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,16 +40,25 @@ public class Users {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Roles role;
+    @Builder.Default
+    private Set<Roles> role = new HashSet<>();
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private boolean isActive = true;
 
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
+    @Column(name = "updated_date")
     private LocalDateTime updatedDate;
 
     @PrePersist
     public void prePersist() {
         createdDate = LocalDateTime.now();
+        updatedDate = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedDate = LocalDateTime.now();
     }
 }
