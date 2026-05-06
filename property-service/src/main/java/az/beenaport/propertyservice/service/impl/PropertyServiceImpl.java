@@ -1,4 +1,4 @@
-package az.beenaport.propertyservice.service;
+package az.beenaport.propertyservice.service.impl;
 
 import az.beenaport.propertyservice.dto.request.AssignManagerRequest;
 import az.beenaport.propertyservice.dto.request.PropertyRequest;
@@ -13,6 +13,7 @@ import az.beenaport.propertyservice.mapper.PropertyMapper;
 import az.beenaport.propertyservice.repository.PropertyManagerRepository;
 import az.beenaport.propertyservice.repository.PropertyRepository;
 import az.beenaport.propertyservice.auth.CurrentUserUtil;
+import az.beenaport.propertyservice.service.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +22,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PropertyService {
+public class PropertyServiceImpl implements PropertyService {
 
     private final PropertyRepository propertyRepository;
     private final PropertyManagerRepository propertyManagerRepository;
     private final PropertyMapper propertyMapper;
     private final CurrentUserUtil currentUserUtil;
 
+    @Override
     @Transactional
     public PropertyResponse create(PropertyRequest request) {
         Long ownerId = currentUserUtil.getCurrentUserId();
@@ -46,6 +48,7 @@ public class PropertyService {
         return propertyMapper.toResponse(propertyRepository.save(property));
     }
 
+    @Override
     public List<PropertyResponse> getAll() {
         if (!currentUserUtil.hasRole("ADMIN")) {
             throw new AccessDeniedException("Only admins can view all properties");
@@ -57,6 +60,7 @@ public class PropertyService {
                 .toList();
     }
 
+    @Override
     public List<PropertyResponse> getMyProperties() {
         if (!currentUserUtil.hasRole("OWNER")) {
             throw new AccessDeniedException("Only owners can view their properties");
@@ -69,10 +73,12 @@ public class PropertyService {
                 .toList();
     }
 
+    @Override
     public PropertyResponse getById(Long id) {
         return propertyMapper.toResponse(findById(id));
     }
 
+    @Override
     @Transactional
     public PropertyResponse update(Long id, PropertyRequest request) {
         Property property = findById(id);
@@ -86,6 +92,7 @@ public class PropertyService {
         return propertyMapper.toResponse(propertyRepository.save(property));
     }
 
+    @Override
     @Transactional
     public void delete(Long id) {
         Property property = findById(id);
@@ -94,6 +101,7 @@ public class PropertyService {
         propertyRepository.save(property);
     }
 
+    @Override
     @Transactional
     public PropertyManagerResponse assignManager(Long propertyId, AssignManagerRequest request) {
         Property property = findById(propertyId);
@@ -114,6 +122,7 @@ public class PropertyService {
         return propertyMapper.toManagerResponse(propertyManagerRepository.save(manager));
     }
 
+    @Override
     public List<PropertyManagerResponse> getManagers(Long propertyId) {
         findById(propertyId);
         checkOwnershipOrAdmin(findById(propertyId));
@@ -124,6 +133,7 @@ public class PropertyService {
                 .toList();
     }
 
+    @Override
     @Transactional
     public void removeManager(Long propertyId, Long managerId) {
         Property property = findById(propertyId);
@@ -136,8 +146,6 @@ public class PropertyService {
         manager.setActive(false);
         propertyManagerRepository.save(manager);
     }
-
-    // ── Private helpers ───────────────────────────────────────────
 
     private Property findById(Long id) {
         return propertyRepository.findById(id)

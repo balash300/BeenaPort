@@ -1,4 +1,4 @@
-package az.beenaport.propertyservice.property.request;
+package az.beenaport.propertyservice.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

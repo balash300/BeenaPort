@@ -1,4 +1,4 @@
-package az.beenaport.propertyservice.property.request;
+package az.beenaport.propertyservice.dto.request;
 
 import az.beenaport.propertyservice.enums.PropertyType;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package az.beenaport.propertyservice.property.response;
+package az.beenaport.propertyservice.dto.response;
 
 import az.beenaport.propertyservice.enums.PropertyType;
 import lombok.AllArgsConstructor;
@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder

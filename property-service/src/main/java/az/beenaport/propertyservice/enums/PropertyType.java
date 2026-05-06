@@ -1,4 +1,6 @@
 package az.beenaport.propertyservice.enums;
 
-public class PropertyType {
+public enum PropertyType {
+    RESIDENTIAL,
+    COMMERCIAL
 }

@@ -1,1 +1,35 @@
-spring.application.name=property-service
+server:
+  port: 8084
+  servlet:
+    context-path: /api/v1/property
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/propertydb}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:12345}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+jwt:
+  secret: UD/VbTB8BRa2DQfy93QXr9yAe0qZEkeeRWezRKVlf9U=
+
+auth:
+  service:
+    url: ${AUTH_SERVICE_URL:http://localhost:8081}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+
+logging:
+  level:
+    org.springdoc: DEBUG

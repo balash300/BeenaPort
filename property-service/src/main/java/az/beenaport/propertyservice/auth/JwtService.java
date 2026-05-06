@@ -1,4 +1,4 @@
-package az.beenaport.propertyservice.security;
+package az.beenaport.propertyservice.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

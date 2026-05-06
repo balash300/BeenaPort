@@ -1,4 +1,7 @@
 package az.beenaport.propertyservice.enums;
 
-public class PaymentResposibility {
+public enum PaymentResponsibility {
+    TENANT,
+    OWNER,
+    SPLIT
 }

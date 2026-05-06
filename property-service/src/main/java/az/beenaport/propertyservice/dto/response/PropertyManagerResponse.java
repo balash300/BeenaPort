@@ -1,4 +1,4 @@
-package az.beenaport.propertyservice.property.response;
+package az.beenaport.propertyservice.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

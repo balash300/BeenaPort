@@ -1,4 +1,4 @@
-package az.beenaport.propertyservice.security;
+package az.beenaport.propertyservice.auth;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

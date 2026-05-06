@@ -1,4 +1,4 @@
-package az.beenaport.propertyservice.security;
+package az.beenaport.propertyservice.auth;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
