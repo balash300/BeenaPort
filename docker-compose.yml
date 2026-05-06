@@ -11,9 +11,11 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - auth-service
-#      - property-service
-#      - billing-service
+      - billing-service
 #      - payment-service
+      - property-service
+    networks:
+      - beenaport-network
 
   auth-service:
     build: ./auth-service
@@ -26,24 +28,45 @@ services:
       - SPRING_DATASOURCE_PASSWORD=12345
     depends_on:
       - auth-db
-
-  property-service:
-    build: ./property-service
-    container_name: property-service
-    ports:
-      - "8082:8082"
+    networks:
+      - beenaport-network
 
   billing-service:
     build: ./billing-service
     container_name: billing-service
     ports:
-      - "8083:8083"
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://auth-db:5432/authdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=12345
+    depends_on:
+      - auth-db
+    networks:
+      - beenaport-network
 
   payment-service:
     build: ./payment-service
     container_name: payment-service
     ports:
+      - "8083:8083"
+    networks:
+      - beenaport-network
+
+  property-service:
+    build: ./property-service
+    container_name: property-service
+    ports:
       - "8084:8084"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://property-db:5432/propertydb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=12345
+      - AUTH_SERVICE_URL=http://auth-service:8081
+    depends_on:
+      - property-db
+    networks:
+      - beenaport-network
 
   auth-db:
     image: postgres:15
@@ -54,3 +77,33 @@ services:
       POSTGRES_PASSWORD: 12345
     ports:
       - "5433:5432"
+    networks:
+      - beenaport-network
+
+  property-db:
+    image: postgres:15
+    container_name: property-db
+    environment:
+      POSTGRES_DB: propertydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+    ports:
+      - "5434:5432"
+    networks:
+      - beenaport-network
+
+  billing-db:
+    image: postgres:15
+    container_name: billing-db
+    environment:
+      POSTGRES_DB: billingdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+    ports:
+      - "5434:5432"
+    networks:
+      - beenaport-network
+
+networks:
+  beenaport-network:
+    driver: bridge
