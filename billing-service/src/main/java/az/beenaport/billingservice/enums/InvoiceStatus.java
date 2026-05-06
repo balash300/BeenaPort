@@ -1,4 +1,9 @@
 package az.beenaport.billingservice.enums;
 
-public class InvoiceStatus {
+public enum InvoiceStatus {
+    PENDING,
+    PARTIALLY_PAID,
+    PAID,
+    OVERDUE,
+    CANCELLED
 }

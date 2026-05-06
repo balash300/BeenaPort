@@ -1,4 +1,6 @@
 package az.beenaport.billingservice.enums;
 
-public class InvoiceType {
+public enum InvoiceType {
+    AUTOMATIC,
+    MANUAL
 }

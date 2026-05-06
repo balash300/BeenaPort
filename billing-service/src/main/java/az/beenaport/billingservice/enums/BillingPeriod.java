@@ -1,4 +1,6 @@
 package az.beenaport.billingservice.enums;
 
-public class Monthly {
+public enum BillingPeriod {
+    MONTHLY,
+    QUARTERLY
 }

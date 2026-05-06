@@ -1,4 +1,4 @@
-package az.beenaport.propertyservice.exception.response;
+package az.beenaport.billingservice.exception.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

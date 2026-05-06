@@ -1,4 +1,4 @@
-package az.beenaport.propertyservice.auth;
+package az.beenaport.billingservice.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

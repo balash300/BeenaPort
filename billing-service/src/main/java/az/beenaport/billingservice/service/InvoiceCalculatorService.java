@@ -1,4 +1,4 @@
-package az.beenaport.billingservice.service.impl;
+package az.beenaport.billingservice.service;
 
 import az.beenaport.billingservice.client.response.LeaseResponse;
 import az.beenaport.billingservice.enums.BillingPeriod;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class InvoiceCalculatorService {
 
     /**
-     * Tenant ödəməli olan məbləği hesabla
+     * Tenant ödəməli olan məbləği hesablanması
      */
     public BigDecimal calculateTenantAmount(LeaseResponse lease) {
         if (lease.getPaymentResponsibility() == PaymentResponsibility.OWNER) {
@@ -30,7 +30,7 @@ public class InvoiceCalculatorService {
     }
 
     /**
-     * Owner ödəməli olan məbləği hesabla
+     * Owner ödəməli olan məbləği hesablanması
      */
     public BigDecimal calculateOwnerAmount(LeaseResponse lease) {
         if (lease.getPaymentResponsibility() == PaymentResponsibility.TENANT) {
@@ -45,7 +45,7 @@ public class InvoiceCalculatorService {
     }
 
     /**
-     * Period start və end tarixlərini hesabla
+     * Period start və end tarixlərini hesablanması
      */
     public LocalDate calculatePeriodEnd(LocalDate periodStart, BillingPeriod billingPeriod) {
         return switch (billingPeriod) {
@@ -55,7 +55,7 @@ public class InvoiceCalculatorService {
     }
 
     /**
-     * Növbəti billing tarixini hesabla
+     * Növbəti billing tarixini hesablanması
      */
     public LocalDate calculateNextBillingDate(LocalDate current, BillingPeriod billingPeriod) {
         return switch (billingPeriod) {
@@ -65,12 +65,12 @@ public class InvoiceCalculatorService {
     }
 
     /**
-     * Due date hesabla — period start-dan 5 gün sonra
+     * Due date hesablanması — period start-dan 5 gün sonra
      */
     public LocalDate calculateDueDate(LocalDate periodStart) {
         return periodStart.plusDays(5);
     }
-    
+
     private BigDecimal calculateTenantShare(LeaseResponse lease) {
         int ownerPercent = lease.getOwnerSharePercent();
         int tenantPercent = 100 - ownerPercent;

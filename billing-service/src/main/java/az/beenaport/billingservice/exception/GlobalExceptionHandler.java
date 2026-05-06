@@ -1,6 +1,6 @@
-package az.beenaport.propertyservice.exception;
+package az.beenaport.billingservice.exception;
 
-import az.beenaport.propertyservice.exception.response.ErrorResponse;
+import az.beenaport.billingservice.exception.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

@@ -1,4 +1,4 @@
-package az.beenaport.propertyservice.exception;
+package az.beenaport.billingservice.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
   public ResourceNotFoundException(String message) {
