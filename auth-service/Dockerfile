@@ -3,15 +3,15 @@ FROM gradle:8.5-jdk21 AS builder
 
 WORKDIR /app
 
-COPY . .
+COPY build.gradle .
+COPY settings.gradle .
 
-# Give permission
-RUN chmod +x gradlew
+RUN gradle dependencies --no-daemon || true
 
-# Use wrapper (IMPORTANT)
-RUN ./gradlew build -x test
+COPY src ./src
 
-# Run stage
+RUN gradle build -x test --no-daemon
+
 FROM eclipse-temurin:21-jdk-jammy
 
 WORKDIR /app
