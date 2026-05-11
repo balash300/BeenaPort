@@ -107,7 +107,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12345
     ports:
-      - "5434:5432"
+      - "5435:5432"
     networks:
       - beenaport-network
 
@@ -119,7 +119,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12345
     ports:
-      - "5434:5432"
+      - "5436:5432"
     networks:
       - beenaport-network
 
