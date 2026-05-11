@@ -5,9 +5,9 @@ server:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/propertydb}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:12345}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create
@@ -16,11 +16,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 jwt:
-  secret: UD/VbTB8BRa2DQfy93QXr9yAe0qZEkeeRWezRKVlf9U=
+  secret: ${JWT_SECRET}
 
 auth:
   service:
-    url: ${AUTH_SERVICE_URL:http://localhost:8081}
+    url: ${AUTH_SERVICE_URL}
 
 springdoc:
   swagger-ui:
@@ -32,4 +32,5 @@ springdoc:
 
 logging:
   level:
-    org.springdoc: DEBUG
+    root: WARN
+    az.beenaport: INFO
