@@ -1,0 +1,36 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /api/v1/payment
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5436/paymentdb}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:12345}
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+jwt:
+  secret: UD/VbTB8BRa2DQfy93QXr9yAe0qZEkeeRWezRKVlf9U=
+  system-token-expiry: 3600
+
+billing:
+  service:
+    url: ${BILLING_SERVICE_URL:http://localhost:8082}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+
+logging:
+  level:
+    org.springdoc: DEBUG
