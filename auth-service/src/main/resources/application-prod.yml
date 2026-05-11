@@ -5,10 +5,9 @@ server:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/authdb}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:12345}
-
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create
@@ -17,7 +16,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 jwt:
-  secret: UD/VbTB8BRa2DQfy93QXr9yAe0qZEkeeRWezRKVlf9U=
+  secret: ${JWT_SECRET}
   access-token-expiry: 900
   refresh-token-expiry: 604800
 
@@ -31,5 +30,5 @@ springdoc:
 
 logging:
   level:
-    org.springframework.security: DEBUG
-    org.springdoc: DEBUG
+    root: WARN
+    az.beenaport: INFO

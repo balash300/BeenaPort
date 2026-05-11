@@ -7,10 +7,8 @@ services:
     container_name: nginx
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./nginx/nginx.local.conf:/etc/nginx/nginx.local.conf
-      - /etc/ssl/beenaport:/etc/ssl/beenaport:ro
     depends_on:
       - auth-service
       - billing-service
@@ -18,7 +16,6 @@ services:
       - property-service
     networks:
       - beenaport-network
-    restart: always
 
   auth-service:
     build: ./auth-service
@@ -26,16 +23,13 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:postgresql://auth-db:5432/authdb
       - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
-      - JWT_SECRET=${JWT_SECRET}
+      - SPRING_DATASOURCE_PASSWORD=12345
     depends_on:
       - auth-db
     networks:
       - beenaport-network
-    restart: always
 
   billing-service:
     build: ./billing-service
@@ -43,17 +37,13 @@ services:
     ports:
       - "8082:8082"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://billing-db:5432/billingdb
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://auth-db:5432/authdb
       - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
-      - PROPERTY_SERVICE_URL=http://property-service:8084
-      - JWT_SECRET=${JWT_SECRET}
+      - SPRING_DATASOURCE_PASSWORD=12345
     depends_on:
-      - billing-db
+      - auth-db
     networks:
       - beenaport-network
-    restart: always
 
   payment-service:
     build: ./payment-service
@@ -61,17 +51,14 @@ services:
     ports:
       - "8083:8083"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:postgresql://payment-db:5432/paymentdb
       - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+      - SPRING_DATASOURCE_PASSWORD=12345
       - BILLING_SERVICE_URL=http://billing-service:8082
-      - JWT_SECRET=${JWT_SECRET}
     depends_on:
       - payment-db
     networks:
       - beenaport-network
-    restart: always
 
   property-service:
     build: ./property-service
@@ -79,17 +66,14 @@ services:
     ports:
       - "8084:8084"
     environment:
-      - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:postgresql://property-db:5432/propertydb
       - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+      - SPRING_DATASOURCE_PASSWORD=12345
       - AUTH_SERVICE_URL=http://auth-service:8081
-      - JWT_SECRET=${JWT_SECRET}
     depends_on:
       - property-db
     networks:
       - beenaport-network
-    restart: always
 
   auth-db:
     image: postgres:15
@@ -97,14 +81,11 @@ services:
     environment:
       POSTGRES_DB: authdb
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: 12345
     ports:
       - "5433:5432"
-    volumes:
-      - auth-db-data:/var/lib/postgresql/data
     networks:
       - beenaport-network
-    restart: always
 
   property-db:
     image: postgres:15
@@ -112,14 +93,11 @@ services:
     environment:
       POSTGRES_DB: propertydb
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: 12345
     ports:
       - "5434:5432"
-    volumes:
-      - property-db-data:/var/lib/postgresql/data
     networks:
       - beenaport-network
-    restart: always
 
   billing-db:
     image: postgres:15
@@ -127,14 +105,11 @@ services:
     environment:
       POSTGRES_DB: billingdb
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: 12345
     ports:
-      - "5435:5432"
-    volumes:
-      - billing-db-data:/var/lib/postgresql/data
+      - "5434:5432"
     networks:
       - beenaport-network
-    restart: always
 
   payment-db:
     image: postgres:15
@@ -142,21 +117,12 @@ services:
     environment:
       POSTGRES_DB: paymentdb
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: 12345
     ports:
-      - "5436:5432"
-    volumes:
-      - payment-db-data:/var/lib/postgresql/data
+      - "5434:5432"
     networks:
       - beenaport-network
-    restart: always
 
 networks:
   beenaport-network:
     driver: bridge
-
-volumes:
-  auth-db-data:
-  property-db-data:
-  billing-db-data:
-  payment-db-data:
