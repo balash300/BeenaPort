@@ -1,19 +1,22 @@
 server:
   port: 8081
+  address: 0.0.0.0
   servlet:
     context-path: /api/v1/auth
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL_AUTH}
+    url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+      connection:
+        provider_disables_autocommit: false
 
 jwt:
   secret: ${JWT_SECRET}
