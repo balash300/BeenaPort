@@ -4,7 +4,6 @@ import az.beenaport.paymentservice.dto.request.PaymentRequest;
 import az.beenaport.paymentservice.dto.request.RefundRequest;
 import az.beenaport.paymentservice.dto.response.PaymentResponse;
 import az.beenaport.paymentservice.service.PaymentService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
