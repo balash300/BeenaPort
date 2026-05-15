@@ -41,7 +41,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=12345
     depends_on:
-      - auth-db
+      - billing-db
     networks:
       - beenaport-network
 
