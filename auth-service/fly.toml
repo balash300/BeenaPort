@@ -4,7 +4,7 @@
 #
 
 app = 'auth-service-beenaport-1234'
-primary_region = 'gru'
+primary_region = "fra"
 
 [build]
 

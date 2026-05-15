@@ -4,7 +4,7 @@
 #
 
 app = 'billing-service-beenaport-1234'
-primary_region = 'ams'
+primary_region = "fra"
 
 [build]
 
