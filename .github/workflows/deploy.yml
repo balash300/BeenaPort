@@ -11,14 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: superfly/flyctl-actions/setup-flyctl@master
-
       - name: Deploy Auth Service
         working-directory: ./auth-service
         run: flyctl deploy --remote-only
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_AUTH }}
 
   deploy-property:
     name: Deploy Property Service
@@ -26,14 +24,12 @@ jobs:
     needs: deploy-auth
     steps:
       - uses: actions/checkout@v4
-
       - uses: superfly/flyctl-actions/setup-flyctl@master
-
       - name: Deploy Property Service
         working-directory: ./property-service
         run: flyctl deploy --remote-only
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_PROPERTY }}
 
   deploy-billing:
     name: Deploy Billing Service
@@ -41,14 +37,12 @@ jobs:
     needs: deploy-property
     steps:
       - uses: actions/checkout@v4
-
       - uses: superfly/flyctl-actions/setup-flyctl@master
-
       - name: Deploy Billing Service
         working-directory: ./billing-service
         run: flyctl deploy --remote-only
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_BILLING }}
 
   deploy-payment:
     name: Deploy Payment Service
@@ -56,11 +50,9 @@ jobs:
     needs: deploy-billing
     steps:
       - uses: actions/checkout@v4
-
       - uses: superfly/flyctl-actions/setup-flyctl@master
-
       - name: Deploy Payment Service
         working-directory: ./payment-service
         run: flyctl deploy --remote-only
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_PAYMENT }}
