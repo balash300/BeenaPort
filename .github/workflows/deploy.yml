@@ -16,7 +16,7 @@ jobs:
         working-directory: ./auth-service
         run: flyctl deploy --remote-only
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_AUTH }}
+          FLY_API_TOKEN_AUTH: ${{ secrets.FLY_API_TOKEN_AUTH }}
 
   deploy-property:
     name: Deploy Property Service
@@ -29,7 +29,7 @@ jobs:
         working-directory: ./property-service
         run: flyctl deploy --remote-only
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_PROPERTY }}
+          FLY_API_TOKEN_PROPERTY: ${{ secrets.FLY_API_TOKEN_PROPERTY }}
 
   deploy-billing:
     name: Deploy Billing Service
@@ -42,7 +42,7 @@ jobs:
         working-directory: ./billing-service
         run: flyctl deploy --remote-only
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_BILLING }}
+          FLY_API_TOKEN_BILLING: ${{ secrets.FLY_API_TOKEN_BILLING }}
 
   deploy-payment:
     name: Deploy Payment Service
@@ -55,4 +55,4 @@ jobs:
         working-directory: ./payment-service
         run: flyctl deploy --remote-only
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_PAYMENT }}
+          FLY_API_TOKEN_PAYMENT: ${{ secrets.FLY_API_TOKEN_PAYMENT }}
